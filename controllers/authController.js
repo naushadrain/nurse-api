@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 dotenv.config();
-
+const JWT_SECRET = 'naus@12hb%^&';
 // Register User
- const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
     try {
         const { name, email, phone, password, confirmPassword } = req.body;
 
@@ -47,7 +47,7 @@ dotenv.config();
 };
 
 // Login User
- const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -59,7 +59,7 @@ dotenv.config();
         if (!isMatch)
             return res.status(400).json({ message: "Invalid email or password" });
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, {
             expiresIn: "7d",
         });
 
